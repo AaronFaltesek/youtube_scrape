@@ -1,4 +1,15 @@
+from config import settings, __version__
 
+
+def main():
+    '''
+
+    :return:
+    '''
+    print("Being youtube scrape of videos and conversion to mp3 files stored in {}".format(settings['mp3_loc']))
 
 if __name__ == '__main__':
+
     print("Youtube Scrape starting up")
+
+    print("Version: {}".format(__version__))

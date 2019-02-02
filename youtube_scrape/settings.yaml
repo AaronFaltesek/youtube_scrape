@@ -1,0 +1,4 @@
+logging:
+  log_file_name: youtube-scrape
+
+mp3_loc: downloads/mp3
