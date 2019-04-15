@@ -1,4 +1,29 @@
+from __future__ import unicode_literals
 from config import settings, __version__
+import os
+import subprocess
+import pytube
+from pytube import YouTube
+import ffmpeg
+
+
+
+import youtube_dl
+
+
+
+def mp3_download(link, download_dir):
+    ydl_opts = {
+        'format': 'bestaudio/best',
+        'outtmpl': os.path.join(download_dir, '%(title)s.%(ext)s'),
+        'postprocessors': [{
+            'key': 'FFmpegExtractAudio',
+            'preferredcodec': 'mp3',
+            'preferredquality': '192',
+        }],
+    }
+    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+        ydl.download([link])
 
 
 def main():
@@ -6,10 +31,28 @@ def main():
 
     :return:
     '''
-    print("Being youtube scrape of videos and conversion to mp3 files stored in {}".format(settings['mp3_loc']))
+
+    youtube_list_file_path = settings['youtube_list']
+    target_file_type = settings['mp4_mp3_toggle']
+    download_dir = settings['{}_loc'.format(target_file_type)]
+
+    print("Beginning youtube scrape of videos and conversion to mp3 files stored in {}".format(download_dir))
+    if not os.path.exists(download_dir):
+        os.makedirs(download_dir)
+        print("Directory created: {}".format(download_dir))
+
+    # single link
+
+    youtube_list_file = open(youtube_list_file_path, "r")
+    youtube_links = youtube_list_file.readlines()
+
+    [mp3_download(link, download_dir) for link in youtube_links if link.__contains__('www.youtube')]
+
+    print('done')
+
 
 if __name__ == '__main__':
 
     print("Youtube Scrape starting up")
-
+    main()
     print("Version: {}".format(__version__))
