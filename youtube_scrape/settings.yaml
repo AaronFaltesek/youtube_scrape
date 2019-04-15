@@ -1,4 +1,9 @@
 logging:
   log_file_name: youtube-scrape
 
-mp3_loc: downloads/mp3
+mp3_loc: E:/Music/downloads/mp3
+mp4_loc: E:/Music/downloads/mp4
+
+youtube_list: C:\Users\aaron\PycharmProjects\youtube_scrape\song_lists\spring_2019_2.txt
+
+mp4_mp3_toggle: mp3
