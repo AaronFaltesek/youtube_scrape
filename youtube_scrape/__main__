@@ -22,12 +22,21 @@ def mp3_download(link, download_dir):
             'preferredquality': '192',
         }],
     }
-    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-        ydl.download([link])
 
+    return_code = ''
+
+    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+        return_code = ydl.download([link])
+
+    return return_code
+
+
+def test_main():
+    return True
 
 def main():
     '''
+    This will kick off the download process
 
     :return:
     '''
