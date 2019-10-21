@@ -7,5 +7,5 @@ with open('{}/settings.yaml'.format(os.path.dirname(os.path.realpath(__file__)))
     path = os.path.dirname(os.path.realpath(__file__))
     settings = yaml.load(f)
 
-__version__ = '1.0.1'
-__release_date__ = '02-02-2019'
+__version__ = '1.1.0'
+__release_date__ = '10-20-2019'

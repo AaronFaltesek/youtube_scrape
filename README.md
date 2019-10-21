@@ -3,5 +3,9 @@
 This application will allow for extractions of mp3 from a list of youtube links
 
 ### Pre run steps:
-pip install ffmpeg-python
-pip install pytube
+```conda env create --name youtube_scrape --file environment.yml```
+```pip install youtube-dl```
+
+
+### Post run steps:
+```conda env export > environment.yml```

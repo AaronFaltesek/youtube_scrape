@@ -3,6 +3,15 @@ from config import settings, __version__
 import os
 import random
 import youtube_dl
+import logging
+import sys
+logging.basicConfig(filename='../logs/youtube_scrape.log',
+                            filemode='a',
+                            format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
+                            datefmt='%H:%M:%S',
+                            level=logging.DEBUG)
+logging.getLogger().addHandler(logging.StreamHandler(sys.stdout))
+logger = logging.getLogger()
 
 def mp3_download(link, download_dir):
     ydl_opts = {
@@ -57,16 +66,15 @@ def main():
 
     :return: None
     '''
-
     youtube_list_file_path = settings['youtube_list']
     target_file_type = settings['mp4_mp3_toggle']
-    download_dir = create_download_directory(target_file_type)
+    create_download_directory(target_file_type)
     download_dir = settings['{}_loc'.format(target_file_type)]
 
-    print("Beginning youtube scrape of videos and conversion to mp3/mp4 files stored in {}".format(download_dir))
+    logger.info("Beginning youtube scrape of videos and conversion to mp3/mp4 files stored in {}".format(download_dir))
     if not os.path.exists(download_dir):
         os.makedirs(download_dir)
-        print("Directory created: {}".format(download_dir))
+        logger.info("Directory created: {}".format(download_dir))
 
     # single link
 
@@ -75,11 +83,11 @@ def main():
 
     [mp3_download(link, download_dir) for link in youtube_links if link.__contains__('www.youtube')]
 
-    print('done')
+    logger.info('done')
 
 
 if __name__ == '__main__':
-
-    print("Youtube Scrape starting up")
+    logger.info("Starting up youtube scrape application")
+    logger.info("Version: {}".format(__version__))
     main()
-    print("Version: {}".format(__version__))
+
